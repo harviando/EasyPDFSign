@@ -27,4 +27,7 @@
 **Q: Once the user has their signature ready, how do they place it on the PDF?**
 **A:** Drag and drop, like placing an element on Canva.
 
-**Status:** In progress. Awaiting details on post-signing workflow and operational reality.
+**Q: After the user places their signature and downloads the PDF, is there anything else they need to do?**
+**A:** No, purely for placing a signature and downloading.
+
+**Status:** In progress. Awaiting details on operational reality and deployment context.
