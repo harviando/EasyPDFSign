@@ -24,4 +24,7 @@
 **Q: When a user signs a PDF, what does the actual signature look like? (Draw, type, upload image?)**
 **A:** Wants all options: Draw with mouse/finger, type name with a font, and upload an image of their signature.
 
-**Status:** In progress. Awaiting details on placement and post-signing workflow.
+**Q: Once the user has their signature ready, how do they place it on the PDF?**
+**A:** Drag and drop, like placing an element on Canva.
+
+**Status:** In progress. Awaiting details on post-signing workflow and operational reality.
