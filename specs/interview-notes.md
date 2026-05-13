@@ -33,4 +33,9 @@
 **Q: Do you want the PDF processing to happen entirely in the user's browser (client-side) or uploaded to the server for processing?**
 **A:** Fully client side. Maximum privacy, no server storage.
 
-**Status:** In progress. Awaiting details on tech stack and operational reality.
+**Q: Do you have a preference for a frontend framework?**
+**A:** Best tool for the job. Wants it to be reliable, consistent, not clunky, solid.
+
+**Decision:** React. It has the most mature ecosystem for complex interactive UIs (drag-and-drop, canvas drawing) and PDF manipulation libraries (like pdf-lib), ensuring a solid, non-clunky experience.
+
+**Status:** In progress. Awaiting details on operational reality.
