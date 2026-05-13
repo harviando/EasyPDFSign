@@ -19,4 +19,9 @@
 **Q: Where do you want to host this?**
 **A:** Vercel.
 
-**Status:** In progress. Awaiting details on the signing workflow and desired future state.
+## Zone C: The Desired Future State
+
+**Q: When a user signs a PDF, what does the actual signature look like? (Draw, type, upload image?)**
+**A:** Wants all options: Draw with mouse/finger, type name with a font, and upload an image of their signature.
+
+**Status:** In progress. Awaiting details on placement and post-signing workflow.
