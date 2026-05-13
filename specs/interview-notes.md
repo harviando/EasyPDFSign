@@ -13,4 +13,10 @@
 **Q: Where does this live? (Your laptop, a server, cloud, embedded device?)**
 **A:** Wants it to live in the browser, but ultimately other people should be able to access it as well. So it needs to be a web application hosted somewhere accessible.
 
-**Status:** In progress. Awaiting details on hosting, users, and desired future state.
+**Q: Who are "other people"? Is this for your team, friends, or the general public?**
+**A:** General public on the internet.
+
+**Q: Where do you want to host this?**
+**A:** Vercel.
+
+**Status:** In progress. Awaiting details on the signing workflow and desired future state.
