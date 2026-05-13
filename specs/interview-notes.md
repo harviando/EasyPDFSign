@@ -30,4 +30,7 @@
 **Q: After the user places their signature and downloads the PDF, is there anything else they need to do?**
 **A:** No, purely for placing a signature and downloading.
 
-**Status:** In progress. Awaiting details on operational reality and deployment context.
+**Q: Do you want the PDF processing to happen entirely in the user's browser (client-side) or uploaded to the server for processing?**
+**A:** Fully client side. Maximum privacy, no server storage.
+
+**Status:** In progress. Awaiting details on tech stack and operational reality.
