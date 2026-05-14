@@ -12,3 +12,5 @@
 - Sentry will capture all error prevention events (pre-validation failures, corrupted local storage, invalid inputs) as low-priority warnings, to help track common user pain points without triggering urgent error alerts.
 - All defensive try/catch blocks will include `Sentry.captureException` with full context (action attempted, current state, user input type) to aid debugging.
 - React Error Boundary will send unhandled exceptions to Sentry, along with component stack and state snapshot for full reproducibility.
+- Sentry will capture fidelity discrepancy events (mismatch between editor signature data and exported PDF embedded signature data) as high-priority errors, with full context: expected vs actual coordinates, scaling factor, signature type, and PDF details.
+- All scaling factor calculations and coordinate conversions are logged to Sentry as debug events to aid fidelity issue debugging.

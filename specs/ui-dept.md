@@ -13,3 +13,6 @@
 
 **Q: When the user places the signature on the PDF, should they be able to resize and rotate it, or just resize it?**
 **A:** Both resize and rotate.
+
+**Q: To ensure the exported PDF is exactly identical to the editor preview, how should the PDF workspace preview be configured?**
+**A:** The PDF preview must be a pixel-perfect 1:1 representation of the actual PDF page, using the exact same dimensions and scaling as the final exported PDF. This ensures that signature placement in the editor is exactly where it will appear in the exported file, with zero scaling discrepancies.

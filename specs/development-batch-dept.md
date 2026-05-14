@@ -13,6 +13,7 @@
 5. **Local Storage Safety**: Stored signatures are validated on load; corrupted/invalid data is automatically cleared with a silent Sentry warning, and the user is prompted to recreate their signature.
 6. **Boundary Enforcement**: Signatures placed via react-rnd are constrained to PDF page bounds, with invalid placements (negative coordinates, outside page) auto-corrected before PDF embedding.
 7. **Resource Protection**: 10MB file size limit is checked immediately on upload, before any PDF processing begins, to prevent browser crashes. Password prompts are triggered before any PDF parsing for protected files.
+8. **Fidelity Enforcement**: All signature placement data from the editor is validated against the exported PDF's embedded data to ensure exact match, with discrepancies reported to Sentry as high-priority issues.
 
 ---
 
@@ -36,17 +37,18 @@
 - **Deployment Artifact**: None (foundational setup batch).
 
 #### Batch 2: Signature Generation & Workspace
-- **Objective**: Build the top toolbar with Draw/Type/Upload signature options, implement signature creation logic, and render PDF pages using `react-pdf`.
-- **Scope**: Toolbar UI (sharp corners, professional theme), signature canvas for drawing, text-to-image conversion for typed signatures, image upload for signature files, PDF page rendering, signature input validation, local storage pre-check.
+- **Objective**: Build the top toolbar with Draw/Type/Upload signature options, implement signature creation logic, and render PDF pages using `react-pdf` with 1:1 pixel-perfect preview matching actual PDF dimensions.
+- **Scope**: Toolbar UI (sharp corners, professional theme), signature canvas for drawing, text-to-image conversion for typed signatures, image upload for signature files, PDF page rendering with locked scaling factor for fidelity, signature input validation, local storage pre-check.
 - **Error Prevention Measures**:
   - Validate typed signature is not empty, contains only printable characters
   - Validate uploaded signature image is a valid image type (png, jpg, jpeg, gif), reject invalid types
   - Check local storage for existing signature on load, validate stored data structure; clear corrupted data silently
   - Wrap `react-pdf` rendering calls in try/catch to handle unsupported PDF features
   - Sanitize typed signature text to prevent XSS or rendering issues
+  - Lock `react-pdf` preview scaling factor to match actual PDF dimensions, prevent dynamic rescaling
 - **Acceptance Criteria**:
   - User can create signature via all 3 methods, with input validation
-  - PDF pages render correctly in workspace
+  - PDF pages render correctly in workspace at 1:1 scale with actual PDF dimensions
   - Existing signatures load from local storage if valid, else prompt to recreate
 - **Test Plan**:
   - Happy Path: Create signature via draw, type (valid text), upload (valid image)
@@ -55,45 +57,59 @@
   - Error Prevention: Verify invalid signature inputs are rejected before processing
 - **Deployment Artifact**: None (feature batch).
 
-#### Batch 3: Canva-Like Signature Interaction
-- **Objective**: Implement drag-and-drop, resize, and rotate functionality for signatures placed on the PDF, and wire the download button to embed the signature into the PDF.
-- **Scope**: `react-rnd` integration for draggable/resizable/rotatable signatures, coordinate mapping between PDF render and actual PDF dimensions, `pdf-lib` embedding of signature images into the PDF, signature boundary enforcement, coordinate validation.
+#### Batch 3: Canva-Like Signature Interaction & Fidelity
+- **Objective**: Implement drag-and-drop, resize, and rotate functionality for signatures placed on the PDF, wire the download button to embed the signature into the PDF, and enforce exact 1:1 match between editor preview and exported PDF.
+- **Scope**: `react-rnd` integration for draggable/resizable/rotatable signatures, pixel-perfect coordinate mapping between PDF render and actual PDF dimensions, `pdf-lib` embedding of signature images into the PDF (lossless, exact coordinates), signature boundary enforcement, coordinate validation, fidelity checks for exact editor-to-export match.
 - **Error Prevention Measures**:
   - Constrain signature placement to within PDF page bounds; auto-adjust out-of-bounds signatures to nearest valid position
   - Validate signature size (min 10x10px, max 500x500px) to prevent embedding issues
   - Validate rotation angle (0-360 degrees) to prevent invalid PDF transformations
   - Wrap `pdf-lib` embedding calls in try/catch to handle invalid image data or coordinate mismatches
   - Check that at least one signature is placed before allowing download
+  - Calculate and lock PDF preview scaling factor on upload, log factor to Sentry for debugging
+  - Validate embedded signature position/size/rotation matches editor values within 0.5 points; report mismatches to Sentry
+  - Verify embedded signature image is identical to editor signature (same data URL) with no re-encoding
+  - Check that no existing PDF content is modified during embedding
 - **Acceptance Criteria**:
   - User can place, resize, rotate signature on any PDF page
   - Downloaded PDF has correctly embedded signature in the right position/size/rotation
   - Invalid signature placements are auto-corrected, no PDF corruption
+  - Exported PDF signature placement, size, rotation, and page position are exactly identical to the editor preview, with zero visible discrepancies
+  - Original PDF content, layout, and metadata remain 100% unchanged
+  - Fidelity check passes: embedded signature coordinates match editor coordinates within 0.5 points
 - **Test Plan**:
   - Happy Path: Place signature on page 1, resize, rotate 45 degrees, download signed PDF
   - Edge Cases: Place signature at page edge, resize to min/max size, rotate 360 degrees
   - Failure Modes: Embed corrupted signature image, embed signature with invalid coordinates
   - Error Prevention: Verify out-of-bounds signatures are adjusted before embedding
+  - Fidelity Test: Place signature at recorded x/y, resize to exact width/height, rotate to exact degrees, export PDF, use PDF inspection to verify embedded signature matches all editor values exactly
+  - Layout Preservation Test: Diff original PDF and exported PDF (excluding signature layer) to confirm all original content is unchanged
+  - Edge Case: Place signature at 1px from page edge, verify exported PDF has signature at identical edge position
 - **Deployment Artifact**: None (feature batch).
 
 #### Batch 4: Polish, Observability & Deployment
-- **Objective**: Apply final UI styling, implement user experience polish (local storage for signatures, 10MB file limit, password-protected PDF prompt), integrate Sentry error tracking, and finalize Vercel deployment.
-- **Scope**: Sharp corner aesthetics, professional/personal color theme, local storage persistence for signatures, 10MB file size validation, password prompt for protected PDFs, Sentry SDK integration, Vercel configuration (`vercel.json`), final end-to-end error prevention checks.
+- **Objective**: Apply final UI styling, implement user experience polish (local storage for signatures, 10MB file limit, password-protected PDF prompt), integrate Sentry error tracking, add final fidelity validation checks, and finalize Vercel deployment.
+- **Scope**: Sharp corner aesthetics, professional/personal color theme, local storage persistence for signatures, 10MB file size validation, password prompt for protected PDFs, Sentry SDK integration, Vercel configuration (`vercel.json`), final end-to-end error prevention and fidelity checks.
 - **Error Prevention Measures**:
   - Add password prompt for password-protected PDFs, validate password before parsing
   - Final pre-download check: verify all signatures are valid, PDF is intact before embedding
   - Wrap all Sentry initialization in try/catch to prevent SDK errors from crashing the app
   - Add React Error Boundary to catch unhandled exceptions, show friendly message, report to Sentry
   - Validate all environment variables (Sentry DSN) are present before initialization
+  - Final fidelity check: Compare all editor signature data to exported PDF embedded data, report any discrepancies to Sentry
 - **Acceptance Criteria**:
   - App matches all UI/UX requirements
   - Handles edge cases (file size, password protection, corrupted data)
   - Reports errors to Sentry, never shows white screen to user
   - Deploys successfully to Vercel via git push
+  - Exported PDF is exactly identical to editor preview for all signature placements, with zero discrepancies
+  - Original PDF content remains 100% unchanged in all cases
 - **Test Plan**:
-  - Happy Path: Full flow from upload to signed PDF download
+  - Happy Path: Full flow from upload to signed PDF download, verify fidelity
   - Edge Cases: Password-protected PDF (valid/invalid password), corrupted local storage, Sentry DSN missing
   - Failure Modes: Unhandled exception in component, `pdf-lib` crash on complex PDF
   - Error Prevention: Verify React Error Boundary catches all crashes, Sentry receives reports
+  - Fidelity Test: Full end-to-end test of editor preview vs exported PDF for multiple signature placements, rotations, and page positions
 - **Deployment Artifact**: `vercel.json` configuration file, Sentry integration, final production build.
 
 ---
