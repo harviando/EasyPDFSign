@@ -10,3 +10,6 @@
 
 **Q: Once the PDF is uploaded and the user is on the signing workspace, how should the signature options (Draw, Type, Upload) be presented?**
 **A:** Toolbar on top.
+
+**Q: When the user places the signature on the PDF, should they be able to resize and rotate it, or just resize it?**
+**A:** Both resize and rotate.
