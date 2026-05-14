@@ -9,7 +9,7 @@
 **A:** Able to navigate and add their signature everywhere they like.
 
 **Q: Should the app remember the user's signature for their next visit (using Local Storage), or should they create it fresh every time?**
-**A:** [Awaiting answer]
+**A:** Yes, remember the signature using Local Storage so they don't have to recreate it every visit.
 
 **Q: Should we set a strict file size limit (e.g., 10MB/20MB) to prevent the browser tab from crashing on mobile or low-end devices?**
-**A:** [Awaiting answer]
+**A:** Yes, set a strict limit. Recommended limit: 10MB. This covers 99% of normal PDFs while keeping the app fast and preventing browser crashes on mobile devices.
