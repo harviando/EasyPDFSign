@@ -70,11 +70,15 @@ You want a free, public, portfolio-quality web app that lets anyone sign a PDF e
 - **Not Clunky:** `react-rnd` gives that snappy, Canva-like drag-and-resize feel without building a complex canvas engine from scratch.
 - **Deployment-First:** Since there is no backend, Vercel just serves static files. Deployment is literally just connecting your GitHub repo. Rollback is just reverting a commit.
 - **Zero-Ping-Pong:** We will implement a React Error Boundary that catches any rendering or PDF processing crashes and shows a clear, plain-English message (e.g., "That PDF might be corrupted or password-protected. Please try another file.") instead of a white screen or cryptic error.
+- **Error Prevention-First:** All batches include pre-validation, defensive coding, and graceful failure measures to prevent user-facing errors before they occur, aligned with Zero-Ping-Pong requirements.
 
 ### The Deployment Plan
 1. Initialize project with Vite + React.
 2. Connect GitHub repo to Vercel.
 3. Every `git push` to `main` automatically builds and deploys.
 4. No `deploy.sh` needed because Vercel handles the entire pipeline, but we will include a `vercel.json` for configuration.
+
+### Error Prevention Planning
+All development batches and client-side logic include integrated error prevention measures: pre-validation of all inputs, defensive wrapping of external library calls, graceful failure handling, and local storage safety checks. Full details are documented in `specs/development-batch-dept.md` and `specs/backend-dept.md`.
 
 **Status:** Phase 0 Complete. Architecture confirmed. Phase 1 Complete. Departments created. Phase 2 In Progress (Backend Dept Complete, UI Dept Complete, DevOps/Deployment Dept Complete, Observability Dept Complete, Development Batch Dept In Progress).

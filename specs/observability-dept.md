@@ -7,3 +7,8 @@
 
 **Q: Do you also want to track basic usage analytics (like how many people visit the site, how many PDFs are signed, etc.) using a privacy-friendly tool like Plausible or Umami, or is error tracking enough for a portfolio project?**
 **A:** No need for other analytics. Error tracking with Sentry is enough.
+
+## Error Prevention Integration
+- Sentry will capture all error prevention events (pre-validation failures, corrupted local storage, invalid inputs) as low-priority warnings, to help track common user pain points without triggering urgent error alerts.
+- All defensive try/catch blocks will include `Sentry.captureException` with full context (action attempted, current state, user input type) to aid debugging.
+- React Error Boundary will send unhandled exceptions to Sentry, along with component stack and state snapshot for full reproducibility.
