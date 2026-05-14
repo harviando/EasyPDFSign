@@ -4,3 +4,6 @@
 
 **Q: If the app crashes or encounters an error (like a corrupted PDF that pdf-lib can't read), how do you want to be notified? Should the app silently send error reports to a service (like Sentry), or should it just show a friendly error message to the user and rely on them to tell you if something goes wrong?**
 **A:** Use Sentry to silently send error reports.
+
+**Q: Do you also want to track basic usage analytics (like how many people visit the site, how many PDFs are signed, etc.) using a privacy-friendly tool like Plausible or Umami, or is error tracking enough for a portfolio project?**
+**A:** No need for other analytics. Error tracking with Sentry is enough.
