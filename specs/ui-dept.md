@@ -7,3 +7,6 @@
 
 **Q: What are the visual aesthetics and color themes for the app?**
 **A:** Sharp corner aesthetics (no rounded buttons/containers). Color theme should feel professional with a personal touch.
+
+**Q: Once the PDF is uploaded and the user is on the signing workspace, how should the signature options (Draw, Type, Upload) be presented?**
+**A:** Toolbar on top.
