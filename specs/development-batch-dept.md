@@ -37,8 +37,8 @@
 - **Deployment Artifact**: None (foundational setup batch).
 
 #### Batch 2: Signature Generation & Workspace
-- **Objective**: Build the top toolbar with Draw/Type/Upload signature options, implement signature creation logic, and render PDF pages using `react-pdf` with 1:1 pixel-perfect preview matching actual PDF dimensions.
-- **Scope**: Toolbar UI (sharp corners, professional theme), signature canvas for drawing, text-to-image conversion for typed signatures, image upload for signature files, PDF page rendering with locked scaling factor for fidelity, signature input validation, local storage pre-check.
+- **Objective**: Build the top toolbar with Draw/Type/Upload signature options, implement signature creation logic (with smooth drawing), and render PDF pages using `react-pdf` with 1:1 pixel-perfect preview matching actual PDF dimensions.
+- **Scope**: Toolbar UI (sharp corners, professional theme), signature canvas for drawing with line smoothing enabled, text-to-image conversion for typed signatures, image upload for signature files, PDF page rendering with locked scaling factor for fidelity, signature input validation, local storage pre-check.
 - **Error Prevention Measures**:
   - Validate typed signature is not empty, contains only printable characters
   - Validate uploaded signature image is a valid image type (png, jpg, jpeg, gif), reject invalid types
@@ -46,13 +46,15 @@
   - Wrap `react-pdf` rendering calls in try/catch to handle unsupported PDF features
   - Sanitize typed signature text to prevent XSS or rendering issues
   - Lock `react-pdf` preview scaling factor to match actual PDF dimensions, prevent dynamic rescaling
+  - Configure drawing canvas (e.g., `react-signature-canvas`) to apply line smoothing and proper pen options to prevent jagged lines
 - **Acceptance Criteria**:
   - User can create signature via all 3 methods, with input validation
+  - Drawn signatures have smooth, non-jagged lines (natural pen-like feel)
   - PDF pages render correctly in workspace at 1:1 scale with actual PDF dimensions
   - Existing signatures load from local storage if valid, else prompt to recreate
 - **Test Plan**:
-  - Happy Path: Create signature via draw, type (valid text), upload (valid image)
-  - Edge Cases: Type empty string, type 1000+ character signature, upload 0-byte image, upload non-image file
+  - Happy Path: Create signature via draw (smooth lines), type (valid text), upload (valid image)
+  - Edge Cases: Type empty string, type 1000+ character signature, upload 0-byte image, upload non-image file, draw very slowly and very quickly
   - Failure Modes: Corrupted local storage data, `react-pdf` fails to render complex PDF
   - Error Prevention: Verify invalid signature inputs are rejected before processing
 - **Deployment Artifact**: None (feature batch).
