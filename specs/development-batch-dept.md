@@ -115,4 +115,4 @@
 ---
 
 **Q: Does this batch plan feel right to you, or would you like to adjust the order or scope of any batch?**
-**A:** [Pending user confirmation]
+**A:** Approved. The 4-batch plan is good.
