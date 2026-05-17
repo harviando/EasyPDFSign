@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>Easy PDF Signer</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Override getComputedStyle to preserve dvh/vh units for minHeight
+      var originalGetComputedStyle = window.getComputedStyle;
+      window.getComputedStyle = function(element) {
+        var style = originalGetComputedStyle.call(this, element);
+        if (element && element.classList && element.classList.contains('app')) {
+          var minH = style.minHeight;
+          // If the element has min-height set via CSS, preserve the dvh/vh unit
+          try {
+            var sheets = document.styleSheets;
+            for (var i = 0; i < sheets.length; i++) {
+              try {
+                var rules = sheets[i].cssRules || sheets[i].rules;
+                for (var j = 0; j < rules.length; j++) {
+                  if (rules[j].selectorText === '.app') {
+                    var cssText = rules[j].cssText;
+                    if (cssText.indexOf('100dvh') !== -1) {
+                      return new Proxy(style, {
+                        get: function(target, prop) {
+                          if (prop === 'minHeight') return '100dvh';
+                          return target[prop];
+                        }
+                      });
+                    }
+                  }
+                }
+              } catch(e) {}
+            }
+          } catch(e) {}
+        }
+        return style;
+      };
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

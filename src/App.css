@@ -1,0 +1,1401 @@
+/* Easy PDF Signer - App Styles */
+/* Sharp corner aesthetics, professional theme */
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --border: #e5e7eb;
+  --border-dark: #d1d5db;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --success: #16a34a;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Header */
+.header {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.header p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+/* Upload Section */
+.upload-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.upload-container {
+  background: var(--bg-primary);
+  border: 2px dashed var(--border-dark);
+  padding: 48px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.upload-container:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.upload-container:hover .upload-icon {
+  color: var(--primary);
+  opacity: 1;
+}
+
+.upload-container:hover .upload-icon svg {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Drag and drop visual feedback */
+.upload-section.dragging .upload-container,
+.upload-container.drag-active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  transform: scale(1.02);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.upload-section.dragging .upload-icon,
+.upload-container.drag-active .upload-icon {
+  color: var(--primary);
+  animation: bounce 0.5s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.upload-icon {
+  color: var(--primary);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-icon svg {
+  width: 80px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.upload-container h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.upload-container p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.file-limit {
+  font-size: 12px !important;
+  color: var(--text-muted) !important;
+  margin-top: 8px;
+}
+
+.error-message {
+  background: var(--error-bg);
+  color: var(--error);
+  padding: 12px 16px;
+  margin: 16px 0;
+  font-size: 14px;
+  border: 1px solid #fecaca;
+}
+
+.upload-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: background 0.2s;
+  /* Ensure touch-friendly size */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.upload-button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.upload-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Workspace Section */
+.workspace-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+  /* Allow wrapping on small screens */
+  flex-wrap: wrap;
+}
+
+.toolbar-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  /* Touch-friendly minimum size */
+  min-height: 44px;
+  min-width: 44px;
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.toolbar-button:hover {
+  background: var(--bg-secondary);
+}
+
+.toolbar-button.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 8px;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  /* Touch-friendly minimum size */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.download-button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.download-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primary-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  /* Touch-friendly minimum size */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Signature Panel */
+.signature-panel {
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.signature-panel.minimized {
+  padding: 8px 16px;
+}
+
+.signature-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.signature-panel.minimized .signature-panel-header {
+  margin-bottom: 0;
+}
+
+.signature-panel-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.signature-minimize-btn,
+.signature-close-btn {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.signature-minimize-btn:hover,
+.signature-close-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.signature-close-btn {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+.signature-close-btn:hover {
+  background: var(--error-bg);
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.signature-panel-minimized-hint {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px 0;
+}
+
+.signature-draw-panel,
+.signature-type-panel,
+.signature-upload-panel {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.signature-draw-panel h3,
+.signature-type-panel h3,
+.signature-upload-panel h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.signature-canvas-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.signature-type-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid var(--border-dark);
+  margin-bottom: 12px;
+  /* Prevent iOS zoom */
+  font-size: 16px;
+}
+
+.signature-type-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.signature-preview {
+  margin-bottom: 12px;
+}
+
+.signature-preview p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.signature-preview-text {
+  font-size: 32px;
+  font-family: "Brush Script MT", cursive;
+  color: var(--text-primary);
+  text-align: center;
+  padding: 16px;
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.signature-upload-panel p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.signature-panel-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* PDF Info Bar */
+.pdf-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  /* Allow wrapping on small screens */
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pdf-info-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pdf-filename {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.pdf-details {
+  color: var(--text-secondary);
+}
+
+.signature-count {
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* PDF Workspace */
+.pdf-workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Saved Signature Display */
+.saved-signature-display {
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.saved-signature-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.saved-signature-display p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.saved-signature-display img {
+  max-height: 50px;
+  max-width: 200px;
+  border: 1px solid var(--border);
+  background: transparent;
+}
+
+/* Place Signature Button */
+.place-signature-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  /* Touch-friendly minimum size */
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 4px;
+}
+
+.place-signature-btn:hover {
+  background: var(--primary-hover);
+}
+
+.place-signature-btn:active {
+  transform: scale(0.98);
+}
+
+/* PDF Viewer Container */
+.pdf-viewer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pdf-viewer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+  background: var(--bg-tertiary);
+  min-height: 500px;
+  position: relative;
+  /* Enable touch scrolling */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pdf-page-wrapper {
+  position: relative;
+  display: inline-block;
+  /* Ensure wrapper scales with content */
+  max-width: 100%;
+}
+
+.pdf-page {
+  background: white;
+  box-shadow: var(--shadow-md);
+  /* Make page responsive */
+  max-width: 100%;
+  height: auto !important;
+}
+
+.pdf-loading,
+.pdf-error {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Signatures Overlay */
+.signatures-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  /* Match PDF page dimensions */
+  width: 100%;
+  height: 100%;
+}
+
+/* Signature Item */
+.signature-item {
+  position: absolute;
+  cursor: move;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  pointer-events: auto;
+  transition: border-color 0.2s;
+  /* Touch-friendly */
+  touch-action: none;
+}
+
+.signature-item:hover {
+  border-color: var(--primary-light);
+}
+
+.signature-item.selected {
+  border-color: var(--primary);
+}
+
+.signature-item:hover:not(.selected) {
+  border-color: var(--primary-light);
+}
+
+.signature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Signature Delete Button */
+.signature-delete-btn {
+  position: absolute;
+  bottom: -56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  background: var(--error);
+  color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  /* Touch-friendly */
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.signature-delete-btn:hover {
+  background: #b91c1c;
+  transform: translateX(-50%) scale(1.1);
+}
+
+/* Resize Handles */
+.resize-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  z-index: 50;
+  transition: all 0.2s;
+  /* Touch-friendly - larger hit area */
+  touch-action: none;
+}
+
+.resize-handle:hover {
+  background: var(--primary);
+  transform: scale(1.2);
+}
+
+/* Corner handles */
+.resize-handle-top-left {
+  top: -8px;
+  left: -8px;
+  cursor: nwse-resize;
+}
+
+.resize-handle-top-right {
+  top: -8px;
+  right: -8px;
+  cursor: nesw-resize;
+}
+
+.resize-handle-bottom-left {
+  bottom: -8px;
+  left: -8px;
+  cursor: nesw-resize;
+}
+
+.resize-handle-bottom-right {
+  bottom: -8px;
+  right: -8px;
+  cursor: nwse-resize;
+}
+
+/* Edge handles */
+.resize-handle-top {
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: ns-resize;
+}
+
+.resize-handle-bottom {
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: ns-resize;
+}
+
+.resize-handle-left {
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  cursor: ew-resize;
+}
+
+.resize-handle-right {
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  cursor: ew-resize;
+}
+
+.resize-handle-top:hover,
+.resize-handle-bottom:hover {
+  transform: translateX(-50%) scale(1.2);
+}
+
+.resize-handle-left:hover,
+.resize-handle-right:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Rotation Handle */
+.rotation-handle {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  border: 2px solid white;
+  border-radius: 50%;
+  z-index: 50;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  touch-action: none;
+}
+
+.rotation-handle:hover {
+  background: var(--primary-hover);
+  transform: translateX(-50%) scale(1.2);
+}
+
+.rotation-handle:active {
+  cursor: grabbing;
+}
+
+.rotation-handle-line {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 42px;
+  background: var(--primary);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rotation-handle-icon {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Page Navigation */
+.page-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.page-nav-button {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  /* Touch-friendly */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.page-nav-button:hover:not(:disabled) {
+  background: var(--bg-secondary);
+}
+
+.page-nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Footer */
+.footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  padding: 12px 24px;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ==================== */
+/* MOBILE RESPONSIVENESS */
+/* ==================== */
+
+/* Small phones (320px and up) */
+@media screen and (max-width: 320px) {
+  .header {
+    padding: 12px 16px;
+  }
+  
+  .header h1 {
+    font-size: 18px;
+  }
+  
+  .header p {
+    font-size: 12px;
+  }
+  
+  .main {
+    padding: 8px;
+  }
+  
+  .upload-section {
+    padding: 8px;
+  }
+  
+  .upload-container {
+    padding: 24px 16px;
+  }
+  
+  .upload-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .upload-container h2 {
+    font-size: 16px;
+  }
+  
+  .upload-container p {
+    font-size: 12px;
+  }
+  
+  .toolbar {
+    padding: 8px;
+    gap: 4px;
+  }
+  
+  .toolbar-button {
+    padding: 8px;
+    font-size: 12px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  .download-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .pdf-info-bar {
+    padding: 8px;
+    font-size: 11px;
+  }
+  
+  .pdf-viewer {
+    padding: 8px;
+    min-height: 300px;
+  }
+  
+  .page-navigation {
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .page-nav-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .page-indicator {
+    font-size: 12px;
+  }
+  
+  .footer {
+    padding: 8px 16px;
+  }
+  
+  .footer p {
+    font-size: 11px;
+  }
+  
+  .saved-signature-display {
+    padding: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .saved-signature-content {
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  
+  .place-signature-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+  }
+}
+
+/* Medium phones (321px - 375px) */
+@media screen and (min-width: 321px) and (max-width: 375px) {
+  .header {
+    padding: 12px 16px;
+  }
+  
+  .header h1 {
+    font-size: 20px;
+  }
+  
+  .header p {
+    font-size: 13px;
+  }
+  
+  .main {
+    padding: 12px;
+  }
+  
+  .upload-section {
+    padding: 12px;
+  }
+  
+  .upload-container {
+    padding: 32px 20px;
+  }
+  
+  .upload-icon svg {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .upload-container h2 {
+    font-size: 18px;
+  }
+  
+  .toolbar {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  
+  .toolbar-button {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  
+  .pdf-info-bar {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .pdf-viewer {
+    padding: 12px;
+    min-height: 350px;
+  }
+}
+
+/* Large phones (376px - 425px) */
+@media screen and (min-width: 376px) and (max-width: 425px) {
+  .header {
+    padding: 14px 20px;
+  }
+  
+  .header h1 {
+    font-size: 22px;
+  }
+  
+  .main {
+    padding: 16px;
+  }
+  
+  .upload-container {
+    padding: 40px 24px;
+  }
+  
+  .upload-icon svg {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .toolbar {
+    padding: 10px 12px;
+  }
+  
+  .pdf-viewer {
+    padding: 16px;
+    min-height: 400px;
+  }
+}
+
+/* Tablets (426px - 768px) */
+@media screen and (min-width: 426px) and (max-width: 768px) {
+  .main {
+    padding: 20px;
+  }
+  
+  .upload-container {
+    padding: 48px 32px;
+  }
+  
+  .toolbar {
+    padding: 12px 16px;
+  }
+  
+  .pdf-viewer {
+    padding: 20px;
+    min-height: 450px;
+  }
+  
+  .saved-signature-display {
+    padding: 10px 14px;
+  }
+  
+  .place-signature-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .header {
+    padding: 8px 16px;
+  }
+  
+  .header h1 {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+  
+  .header p {
+    font-size: 12px;
+  }
+  
+  .main {
+    padding: 8px;
+  }
+  
+  .upload-section {
+    padding: 8px;
+  }
+  
+  .upload-container {
+    padding: 16px;
+  }
+  
+  .upload-icon {
+    margin-bottom: 8px;
+  }
+  
+  .upload-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .upload-container h2 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  
+  .upload-button {
+    margin-top: 12px;
+    padding: 8px 16px;
+  }
+  
+  .pdf-viewer {
+    min-height: 200px;
+    padding: 8px;
+  }
+  
+  .toolbar {
+    padding: 8px 12px;
+  }
+  
+  .footer {
+    padding: 8px 16px;
+  }
+}
+
+/* High DPI / Retina displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .pdf-page {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets on touch devices */
+  .toolbar-button,
+  .download-button,
+  .primary-button,
+  .upload-button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  .signature-minimize-btn,
+  .signature-close-btn {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .resize-handle {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .resize-handle-top-left {
+    top: -10px;
+    left: -10px;
+  }
+  
+  .resize-handle-top-right {
+    top: -10px;
+    right: -10px;
+  }
+  
+  .resize-handle-bottom-left {
+    bottom: -10px;
+    left: -10px;
+  }
+  
+  .resize-handle-bottom-right {
+    bottom: -10px;
+    right: -10px;
+  }
+  
+  .resize-handle-top {
+    top: -10px;
+  }
+  
+  .resize-handle-bottom {
+    bottom: -10px;
+  }
+  
+  .resize-handle-left {
+    left: -10px;
+  }
+  
+  .resize-handle-right {
+    right: -10px;
+  }
+  
+  .signature-delete-btn {
+    width: 48px;
+    height: 48px;
+    top: -20px;
+    left: -20px;
+  }
+
+  .rotation-handle {
+    width: 28px;
+    height: 28px;
+    top: -48px;
+  }
+
+  .rotation-handle-line {
+    top: 26px;
+    height: 22px;
+  }
+
+  .rotation-handle-icon {
+    font-size: 16px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .signature-item:hover {
+    border-color: transparent;
+  }
+  
+  .signature-item.selected {
+    border-color: var(--primary);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-tertiary: #374151;
+    --border: #4b5563;
+    --border-dark: #6b7280;
+    --error-bg: #7f1d1d;
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  }
+  
+  .pdf-page {
+    background: #1f2937;
+  }
+  
+  .upload-container:hover {
+    background: rgba(37, 99, 235, 0.2);
+  }
+  
+  .upload-section.dragging .upload-container,
+  .upload-container.drag-active {
+    background: rgba(37, 99, 235, 0.2);
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Password Prompt Modal */
+.password-prompt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.password-prompt-modal {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  padding: 32px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+.password-prompt-modal h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.password-prompt-modal p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.password-prompt-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid var(--border-dark);
+  margin-bottom: 12px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.password-prompt-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.password-prompt-error {
+  color: var(--error) !important;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.password-prompt-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.password-prompt-cancel {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.password-prompt-cancel:hover {
+  background: var(--bg-secondary);
+}
+
+.password-prompt-submit {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.password-prompt-submit:hover {
+  background: var(--primary-hover);
+}
+
+/* Print styles */
+@media print {
+  .header,
+  .footer,
+  .toolbar,
+  .signature-panel,
+  .upload-section,
+  .page-navigation {
+    display: none !important;
+  }
+  
+  .main {
+    padding: 0;
+  }
+  
+  .pdf-viewer {
+    padding: 0;
+    background: white;
+  }
+  
+  .pdf-page {
+    box-shadow: none;
+  }
+}
