@@ -256,9 +256,9 @@ function App() {
     setPasswordInput('')
   }
 
-  // Handle signature mode selection
+  // Handle signature mode selection (toggle: clicking same mode closes the panel)
   const handleSignatureMode = (mode) => {
-    setSignatureMode(mode)
+    setSignatureMode(prev => prev === mode ? null : mode)
     setError(null)
   }
   
